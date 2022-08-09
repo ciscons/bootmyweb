@@ -151,6 +151,14 @@
  		where prod_id = #{prod_id}
  	</select>
  	
+ 	<select id="getDetailImg" resultType="UploadVO">
+ 	
+		select * 
+		from product_upload
+		where prod_id = #{prod_id} 
+		 	
+ 	</select>
+ 	
  	<update id="productUpdate">
  		update product
  		set prod_enddate = #{prod_enddate},

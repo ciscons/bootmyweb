@@ -6,6 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.myweb.basic.command.CategoryVO;
 import com.myweb.basic.command.ProductVO;
+import com.myweb.basic.command.UploadVO;
 import com.myweb.basic.util.Criteria;
 
 public interface ProductService {
@@ -17,6 +18,8 @@ public interface ProductService {
 	public int getTotal(Criteria cri); //전체게시글수
 	
 	public ProductVO getDetail(int prod_id); //상세조회
+	public List<UploadVO> getDetailImg(int prod_id); // 상세 페이지 이미지 조회
+	
 	public boolean productUpdate(ProductVO vo); //수정
 	public boolean productDelete(int prod_id); //삭제
 	

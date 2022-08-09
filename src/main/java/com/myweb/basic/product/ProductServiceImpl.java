@@ -33,7 +33,8 @@ public class ProductServiceImpl implements ProductService {
 	//폴더생성함수
 	public String makeFolder() {
 		
-		String path = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyMM") );
+		String path = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyMMdd") );
+		System.out.println(uploadPath);
 		File file = new File(uploadPath + "\\" + path);
 		if( file.exists() == false ) {
 			file.mkdirs(); //파일생성
@@ -137,6 +138,11 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<CategoryVO> getCategoryChild(CategoryVO vo) {
 		return productMapper.getCategoryChild(vo);
+	}
+
+	@Override
+	public List<UploadVO> getDetailImg(int prod_id) {
+		return productMapper.getDetailImg(prod_id);
 	}
 
 	

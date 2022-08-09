@@ -1,6 +1,5 @@
 package com.myweb.basic.controller;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,11 +15,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.myweb.basic.command.ProductVO;
+import com.myweb.basic.command.UploadVO;
 import com.myweb.basic.product.ProductService;
 import com.myweb.basic.util.Criteria;
 import com.myweb.basic.util.PageVO;
@@ -77,7 +76,9 @@ public class ProductController {
 		 */
 		ProductVO vo = productService.getDetail(prod_id);
 		model.addAttribute("prodVO", vo);
-		
+		//상품 이미지를 조회
+		List<UploadVO> list = productService.getDetailImg(prod_id);
+		model.addAttribute("uploadList", list);
 		
 		return "product/productDetail";
 	}
