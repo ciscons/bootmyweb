@@ -85,7 +85,7 @@
 						ON A2.CATEGORY_PARENT_LV = A3.CATEGORY_LV AND A2.CATEGORY_DETAIL_PARENT_LV = A3.CATEGORY_DETAIL_LV
 						ORDER BY CATEGORY_NAV ASC) c
  		on p.prod_category = c.category_key
- 		where prod_writer = 'admin' 
+ 		where prod_writer = #{userId} 
  		
  		<if test="searchName != '' and searchName != null"> 
  		and prod_name like concat('%', #{searchName} ,'%')
@@ -115,7 +115,7 @@
  	<select id="getTotal" resultType="int">
  		select count(*) as total
  		from product
- 		where prod_writer = 'admin'
+ 		where prod_writer = #{userId}
  		<if test="searchName != '' and searchName != null"> 
  		and prod_name like concat('%', #{searchName} ,'%')
  		</if>

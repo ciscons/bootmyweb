@@ -1,10 +1,12 @@
 package com.myweb.basic.util;
 
+import com.myweb.basic.command.UserVO;
+
 import lombok.Data;
 
 @Data //getter, setter, toString
-public class Criteria {
-
+public class Criteria extends UserVO{
+	
 	private int page; //페이지번호
 	private int amount; //데이터 개수
 	

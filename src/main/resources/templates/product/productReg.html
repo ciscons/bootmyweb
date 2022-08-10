@@ -105,7 +105,7 @@
                                                 <tr>
                                                     <th>등록자ID</th>
                                                     <td>
-                                                    	<input type="text" class="inputw150" name="prod_writer" th:value="${vo != null ? vo.prod_writer: '' }">
+                                                    	<input type="text" class="inputw150" name="prod_writer" th:value="${session.userId }" readonly>
                                                     	<span class="valid">[[${valid_prod_writer}]]</span>
                                                     </td>
                                                     <!-- 

@@ -3,6 +3,7 @@ package com.myweb.basic.controller;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,11 @@ public class ProductController {
 	}
 	
 	@GetMapping("/productList")
-	public String productList(Model model, Criteria cri) {
+	public String productList(Model model, Criteria cri, HttpSession session) {
+		
+//		System.out.println(session.getAttribute("userId"));
+		String userId = (String)session.getAttribute("userId");
+		cri.setUserId(userId);
 		
 		//1st - admin기반으로 조회(나중에 세션값으로 변경)
 		//List<ProductVO> list = productService.getList();
@@ -53,6 +58,8 @@ public class ProductController {
 //		model.addAttribute("pageVO", pageVO);
 		
 		//3nd
+		//mybatis는 매개변수를 하나 밖에 인식할 수 없다. 그래서 annotation param이라는 걸 써야 하는데,
+		//상속의 개념으로 클래스의 설계 방법을 통해 극복할 수 있다.
 		List<ProductVO> list = productService.getList(cri); //데이터
 		int total = productService.getTotal(cri); //전체게시글수
 		PageVO pageVO = new PageVO(cri, total); //페이지네이션
@@ -141,13 +148,9 @@ public class ProductController {
 				model.addAttribute("valid_files", "이미지형식만 등록가능합니다");
 				return "product/productReg";
 			}
-			
 		}
-		
 		//상품등록
 		boolean result = productService.productRegist(vo, files); //상품데이터, 이미지데이터
-		
-		
 		return "redirect:/product/productList";
 	}
 	

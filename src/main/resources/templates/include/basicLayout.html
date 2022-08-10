@@ -21,6 +21,29 @@
     <!-- 모달창css -->
 	<link rel="stylesheet" type="text/css" href="/css/modal.css">
 
+	<script th:inline="javascript">
+		$(document).ready(function(){
+			// console.log(JSON.parse('[[${menu}]]'));
+			var menu = JSON.parse('[[${menu}]]'); //문자열
+			
+			// console.log( $(".sidenav li a") );
+			
+			$(".sidenav li a").each(function(index, value) {
+	
+				//console.log(this);
+				if($(value).attr('href') == menu) {
+					$(value).addClass('on'); //온 추가	
+					$(value).closest(".sub_menu").prev().addClass('.sub_menu_select')
+					$(value).closest(".sub_menu").css("display", "block");
+				}
+				
+				
+			});
+		});
+		
+	</script>
+
+
 </head>
 <body>
 	
