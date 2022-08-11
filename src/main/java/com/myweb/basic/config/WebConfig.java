@@ -29,11 +29,13 @@ public class WebConfig implements WebMvcConfigurer {
 				.addPathPatterns("/product/**")
 				.addPathPatterns("/topic/**")
 				.addPathPatterns("/user/**")
-				.addPathPatterns("/main/**")
+				.addPathPatterns("/notice/**")
+				.addPathPatterns("/main")
 				.excludePathPatterns("/user/login");
 		
 		registry.addInterceptor( menuHandler() )
 				.addPathPatterns("/product/**")
 				.addPathPatterns("/user/**");
+		
 	}
 }
