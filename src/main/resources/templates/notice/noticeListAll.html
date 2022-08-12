@@ -21,21 +21,26 @@
 					</div>
 					<div class="page_title">관리자검색</div>
 					
-					<form name="###########" action="############" method="get" >
+					<form name="###########" action="noticeListAll" method="get" >
 					<div class="search_block flfull">
 
+						<!-- 검색버튼을 클릭할 때 page, amount, 검색 키워드를 넘긴다. -->
+						<!-- 검색은 항상 페이지 번호가 1번이 되어야 한다. 그래서 name은 page이고, value는 1 -->
+						<input type="hidden" name="page" value="1" >
+						<input type="hidden" name="amount" th:value="${pageDTO.amount}">
+						
 						<div class="fl">
 							<div>
 								<span class="search_th">아이디 검색</span>
-								<input type="text" class="" placeholder="아이디 검색">
+								<input type="text" class="" name="writer" placeholder="아이디 검색" th:value="${cri.writer}">
 							</div>
 							<div>
 								<span class="search_th">제목 검색</span>
-								<input type="text" class="" placeholder="제목 검색">
+								<input type="text" class="" name="title" placeholder="제목 검색" th:value="${cri.title}">
 							</div>
 							<div>
 								<span class="search_th">내용 검색</span>
-								<input type="text" class="" placeholder="내용 검색">
+								<input type="text" class="" name="content" placeholder="내용 검색" th:value="${cri.content}">
 							</div>
 
 
@@ -43,7 +48,7 @@
 
 						<div class="fr">
 							<div class="search_btn_area">
-								<a href="#" class="normal_btn purplebtn">검색</a>
+								<a href="#" id="noticeSearch" class="normal_btn purplebtn">검색</a>
 								<a th:href="@{noticeReg}" class="normal_btn purplebtn02">등록</a>
 							</div>
 						</div>
@@ -52,7 +57,7 @@
 					<div class="full_collum collum">
 						<ul>
 							<li class="collum_tit">
-								<h2>판매자 소통공간</h2>
+								<h2>판매자 소통공간 - 전체 게시글 수 [[${pageDTO.total}]]개</h2>
 
 								<select class="">
 									<option value="10">10개 보기</option>
@@ -73,7 +78,7 @@
 												<th>등록일</th>
 											</tr>
 												
-											<tr th:each="vo, status : ${list}">
+											<tr th:each="vo, status : ${pageDTO.pageData}">
 												<td>[[${status.count}]]</td>
 												<td>[[${vo.nno}]]</td>
 												<td>[[${vo.writer}]]</td>
@@ -89,22 +94,24 @@
 										<div class="page">
 											<ul>
 												<li>
-													<a href="#"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
+													<a th:href="@{noticeListAll(page=1, amount=${pageDTO.amount}, writer=${cri.writer}, title=${cri.title}, content=${cri.content})}"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
+												</li>
+												
+												
+												<li th:if="${pageDTO.prev}">
+													<a th:href="@{noticeListAll(page=${pageDTO.start - 1}, amount=${pageDTO.amount}, writer=${cri.writer}, title=${cri.title}, content=${cri.content})}"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+												</li>
+												
+												<th:block th:each="num : ${pageDTO.pageList}">
+												<li th:class="${pageDTO.page == num ? 'on' : ''}">
+												<a th:href="@{noticeListAll(page=${num}, amount=${pageDTO.amount}, writer=${cri.writer}, title=${cri.title}, content=${cri.content})}">[[${num}]]</a></li>
+												</th:block>
+												
+												<li th:if="${pageDTO.next}">
+													<a th:href="@{noticeListAll(page=${pageDTO.end + 1}, amount=${pageDTO.amount}, writer=${cri.writer}, title=${cri.title}, content=${cri.content})}"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
 												</li>
 												<li>
-													<a href="#"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
-												</li>
-												<li class="on"><a href="#">1</a></li>
-												<li><a href="#">2</a></li>
-												<li><a href="#">3</a></li>
-												<li><a href="#">4</a></li>
-												<li><a href="#">5</a></li>
-
-												<li>
-													<a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
-												</li>
-												<li>
-													<a href="#"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+													<a th:href="@{noticeListAll(page=${pageDTO.pageTotal}, amount=${pageDTO.amount}, writer=${cri.writer}, title=${cri.title}, content=${cri.content})}"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
 												</li>
 				
 											</ul>
@@ -120,4 +127,14 @@
 		</div>
 	</div><!-- end wrap -->
 </th:block>
+
+<script type="text/javascript">
+	//noticeHandleForm
+	$("#noticeSearch").click(function(e){
+		e.preventDefault();  //event.preventDefault(); a태그 기본이벤트 중지 = a 태그를 버튼으로 사용할 수 있음
+		$("form").submit();
+	});
+	
+</script>
+
 </html>

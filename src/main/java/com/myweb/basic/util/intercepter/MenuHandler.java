@@ -14,7 +14,7 @@ public class MenuHandler implements HandlerInterceptor{
 
 //		System.out.println("메뉴포스트핸들러 실행");
 		System.out.println("포스트핸들러 MENU:" + request.getRequestURI());
-		request.setAttribute("menu", request.getRequestURI());
+		request.setAttribute("menu", request.getRequestURI());	
 	}
 
 	

@@ -8,12 +8,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.myweb.basic.entity.Notice;
+import com.myweb.basic.entity.Reply;
 import com.myweb.basic.notice.NoticeService;
+import com.myweb.basic.util.Criteria;
+import com.myweb.basic.util.PageDTO;
 
 @Controller
 @RequestMapping("/notice")
@@ -23,10 +27,11 @@ public class NoticeController {
 	NoticeService noticeService;
 	
 	@GetMapping("/noticeListAll")
-	public String noticeListAll(Model model) {
+	public String noticeListAll(@ModelAttribute("cri") Criteria cri, Model model) {
 		
-		List<Notice> list = noticeService.getListAll();
-		model.addAttribute("list", list);
+		//페이지
+		PageDTO<Notice> list = noticeService.getListAll(cri);
+		model.addAttribute("pageDTO", list);
 		
 		return "notice/noticeListAll";
 	}
@@ -41,8 +46,10 @@ public class NoticeController {
 							   Model model) {
 		
 		Notice notice = noticeService.getDetail(nno);
-		model.addAttribute("vo", notice);
 		
+		System.out.println(notice.toString());
+		
+		model.addAttribute("vo", notice);
 		return "notice/noticeDetail";
 	}
 	
@@ -61,6 +68,22 @@ public class NoticeController {
 		model.addAttribute("vo", notice);
 		
 		return "notice/noticeModify";
+	}
+	
+	@PostMapping("/noticeUpdate")
+	public String noticeUpdate(Notice notice) {
+		
+		noticeService.noticeUpdate(notice);
+		
+		return "redirect:/notice/noticeListMe";
+	}
+	
+	@PostMapping("/noticeDelete")
+	public String noticeDelete(@RequestParam("nno") long nno) {
+		
+		noticeService.noticeDelete(nno);
+		
+		return "redirect:/notice/noticeListMe";
 	}
 	
 	@GetMapping("/noticeListMe")

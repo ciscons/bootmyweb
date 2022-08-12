@@ -219,17 +219,14 @@
 												</li>
 											</ul>
 										</div> 
-										 --> <!-- 페이지 모듈화 - test(페이지경로, 화면에 전달된 vo값) --> <th:block
-												th:replace="~{./include/page :: test('productList', ${pageVO}) }"></th:block>
-
+										 --> <!-- 페이지 모듈화 - test(페이지경로, 화면에 전달된 vo값) -->
+											<th:block th:replace="~{./include/page :: test('productList', ${pageVO}) }"></th:block>
 										</li>
-
 									</ul>
 								</li>
 							</ul>
 						</div>
 					</form>
-
 				</div>
 			</div>
 		</div>
@@ -291,8 +288,8 @@
 		//console.log(document.productForm.amount.value); // amount태그의 value
 		document.productForm.amount.value = a.value;
 		document.productForm.submit();
-
 	}
+	
 	//검색버튼
 	function handleForm() {
 		//폼을 서브밋

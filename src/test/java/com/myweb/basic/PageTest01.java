@@ -1,20 +1,12 @@
 package com.myweb.basic;
 
-import java.util.List;
-
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import com.myweb.basic.command.ProductVO;
-import com.myweb.basic.product.ProductMapper;
-import com.myweb.basic.util.Criteria;
 
 @SpringBootTest
 public class PageTest01 {
 	
-	@Autowired
-	ProductMapper productMapper;
+//	@Autowired
+//	ProductMapper productMapper;
 	//insert 600번
 	/*
 	@Test

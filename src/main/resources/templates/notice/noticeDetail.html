@@ -69,8 +69,8 @@
                                             <!-- 댓글영역 -->
 
                                             <tbody class="reply_area">
-                                                <tr>
-                                                    <th>홍길동</th>
+                                                <tr th:each="reply, status : ${vo.replyList}">
+                                                    <th>[[${reply.writer}]]</th>
                                                     <td class="reply_content">
                                                         <div class="left">
                                                             <span>2021-03-04</span>
@@ -79,26 +79,7 @@
                                                         <input type="button" class="right" value="삭제">
                                                     </td>
                                                 </tr>
-                                                <tr>
-                                                    <th>이순신</th>
-                                                    <td class="reply_content">
-                                                        <div class="left">
-                                                            <span>2021-03-03</span>
-                                                            <p>물건좀 내려주세요</p>
-                                                        </div>
-                                                        <input type="button" class="right" value="삭제">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <th>홍길자</th>
-                                                    <td class="reply_content">
-                                                        <div class="left">
-                                                            <span>2021-03-02</span>
-                                                            <p>ㅡㅡ^</p>
-                                                        </div>
-                                                        <input type="button" class="right" value="삭제">
-                                                    </td>
-                                                </tr>
+                                               
                                             </tbody>
                                             <!-- end댓글영역 -->
                                         </table>

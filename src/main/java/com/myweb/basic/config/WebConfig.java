@@ -33,8 +33,10 @@ public class WebConfig implements WebMvcConfigurer {
 				.addPathPatterns("/main")
 				.excludePathPatterns("/user/login");
 		
+		//메뉴 고정하는 부분
 		registry.addInterceptor( menuHandler() )
 				.addPathPatterns("/product/**")
+				.addPathPatterns("/notice/**")
 				.addPathPatterns("/user/**");
 		
 	}

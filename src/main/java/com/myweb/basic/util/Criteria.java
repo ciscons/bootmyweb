@@ -4,7 +4,7 @@ import com.myweb.basic.command.UserVO;
 
 import lombok.Data;
 
-@Data //getter, setter, toString
+@Data
 public class Criteria extends UserVO{
 	
 	private int page; //페이지번호
@@ -17,6 +17,10 @@ public class Criteria extends UserVO{
 	private String startDate; //시작일
 	private String endDate; //종료일
 	
+	//JPA에서 사용할 검색 키워드 추가 (화면에서 사용되는 검색 키워드)
+	private String writer;
+	private String title;
+	private String content;
 	
 	public Criteria() {
 		this(1, 10);
